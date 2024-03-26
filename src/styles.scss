@@ -11,7 +11,18 @@ html {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background: rgb(32,33,36);
-    background: radial-gradient(circle, rgba(32,33,36,1) 0%, rgba(0,0,0,1) 100%);
+    background: rgb(98, 98, 98);
+    background: radial-gradient(circle, rgba(98, 98, 98, 1) 0%, rgba(0,0,0,1) 100%);
+  }
+
+  body:after {
+    box-shadow: inset 0 0 10em rgba(0,0,0,0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    content: "";
   }
 }
