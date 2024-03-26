@@ -1,0 +1,162 @@
+$white: rgb(223, 191, 191);
+
+.scan-lines {
+  pointer-events:none;
+  background-image:url('http://dizin.x10.bz/images/crtlines.png');
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom: 0;
+  z-index:98;
+  opacity:0.25;
+  animation-name: scan-line-scroll;
+  animation-duration: 60s;
+  -webkit-animation-timing-function:linear;
+  animation-timing-function:linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes scan-line-scroll {
+  0% {
+    left:0;
+    top:0;
+    background-position:0 0;
+    filter:brightness(100%) contrast(100%) blur(0px) hue-rotate(0deg);
+    background-blend-mode: saturation;
+  }
+
+  25% {
+    filter:brightness(50%) contrast(150%);
+    background-blend-mode: saturation;
+  }
+
+  75% {
+    filter: brightness(100%) contrast(150%);
+    background-blend-mode: saturation
+  }
+
+
+  100% {
+    left:0;
+    top:0;
+    background-position:0 500%;
+    filter:brightness(50%) contrast(100%) blur(0px) hue-rotate(359deg);
+    background-blend-mode: saturation;
+  }
+}
+
+.main-container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+
+  .glitch {
+    color: $white;
+    position: relative;
+    font-size: 9vw;
+    animation: glitch 10s 5s infinite;
+    text-shadow: 0 0 22px $white;
+
+    &:before {
+      content: attr(data-text);
+      position: absolute;
+      left: -1px;
+      text-shadow: -3px 0 magenta;
+      overflow: hidden;
+      top: 0;
+      animation: noise-1 3s linear infinite alternate-reverse, glitch 10s 5.05s infinite;
+    }
+
+    &:after {
+      content: attr(data-text);
+      position: absolute;
+      left: 1px;
+      text-shadow: -3px 0 cyan;
+      overflow: hidden;
+      top: 0;
+      animation: noise-2 3s linear infinite alternate-reverse, glitch 10s 5s infinite;
+    }
+  }
+
+  .glow {
+    @extend .glitch;
+    text-shadow: 0 0 1000px rgb(223, 191, 191);
+    color: transparent;
+    position: absolute;
+    top: 0;
+  }
+
+  .blinking-cursor {
+    font-weight: 100;
+    font-size: 5vw;
+    color: $white;
+    animation: 1s blink step-end infinite;
+    position: relative;
+    top: -8px;
+  }
+
+  @keyframes "blink" {
+    from, to {
+      color: transparent;
+      text-shadow: none;
+    }
+    50% {
+      color: $white;
+      text-shadow: 0 0 22px $white;
+    }
+  }
+
+  .divider {
+    border-bottom: 1px dotted $white;
+  }
+
+  .icon-container {
+    padding-top: 3rem;
+    display: flex;
+    justify-content: space-evenly;
+
+    a {
+      text-decoration: none;
+
+      i {
+        color: $white;
+        text-shadow: 0 0 22px $white;
+      }
+    }
+
+
+  }
+
+  @keyframes glitch {
+    1%{
+      transform: rotateX(10deg) skewX(90deg);
+    }
+    2%{
+      transform: rotateX(0deg) skewX(0deg);
+    }
+  }
+
+  @keyframes noise-1 {
+    $steps: 30;
+    @for $i from 1 through $steps {
+      #{percentage($i*(1/$steps))} {
+        $top: random(100);
+        $bottom: random(101 - $top);
+        clip-path: inset(#{$top}px 0 #{$bottom}px 0);
+      }
+    }
+  }
+
+  @keyframes noise-2 {
+    $steps: 30;
+    @for $i from 0 through $steps {
+      #{percentage($i*(1/$steps))} {
+        $top: random(100);
+        $bottom: random(101 - $top);
+        clip-path: inset(#{$top}px 0 #{$bottom}px 0);
+      }
+    }
+  }
+}
