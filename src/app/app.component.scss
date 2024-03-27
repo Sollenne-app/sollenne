@@ -65,7 +65,7 @@ $white: rgb(223, 191, 191);
       text-shadow: -3px 0 magenta;
       overflow: hidden;
       top: 0;
-      animation: noise-1 3s linear infinite alternate-reverse, glitch 10s 5.05s infinite;
+      animation: noise 3s linear infinite alternate-reverse, glitch 10s 5.05s infinite;
     }
 
     &:after {
@@ -75,7 +75,7 @@ $white: rgb(223, 191, 191);
       text-shadow: -3px 0 cyan;
       overflow: hidden;
       top: 0;
-      animation: noise-2 3s linear infinite alternate-reverse, glitch 10s 5s infinite;
+      animation: noise 3s linear infinite alternate-reverse, glitch 10s 5s infinite;
     }
   }
 
@@ -93,7 +93,6 @@ $white: rgb(223, 191, 191);
     color: $white;
     animation: 1s blink step-end infinite;
     position: relative;
-    top: -7px;
   }
 
   @keyframes "blink" {
@@ -139,21 +138,10 @@ $white: rgb(223, 191, 191);
     }
   }
 
-  @keyframes noise-1 {
+  @keyframes noise {
     $steps: 30;
     @for $i from 1 through $steps {
-      #{percentage($i*(1/$steps))} {
-        $top: random(100);
-        $bottom: random(101 - $top);
-        clip-path: inset(#{$top}px 0 #{$bottom}px 0);
-      }
-    }
-  }
-
-  @keyframes noise-2 {
-    $steps: 30;
-    @for $i from 0 through $steps {
-      #{percentage($i*(1/$steps))} {
+      #{percentage($i*(calc(1/$steps)))} {
         $top: random(100);
         $bottom: random(101 - $top);
         clip-path: inset(#{$top}px 0 #{$bottom}px 0);
@@ -175,7 +163,7 @@ $white: rgb(223, 191, 191);
   position: relative;
   animation: 	appear 1s infinite,
   flick 1s infinite,
-  big-jump 5ms infinite;
+  big-jump 50ms infinite;
 
   .white{
     background: white;
