@@ -23,7 +23,7 @@
     }
   ],
   "hosting": {
-    "public": "dist/sollenne",
+    "public": "dist/sollenne/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
